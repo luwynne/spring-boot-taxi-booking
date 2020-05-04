@@ -27,25 +27,25 @@ public class TaxiBookingController {
 	
 	// PUBLIC API'S
 	
-	@GetMapping(value="")
+	@GetMapping(value="/user")
 	public List<Taxi> getAllBookings() {
 		return taxiBookingService.getAllBookings();
 	}
 	
-	@GetMapping(value="/{id}")
+	@GetMapping(value="/admin/{id}")
 	public Optional<Taxi> getBookingDetailById(@PathVariable("id") int id) {
 		return taxiBookingService.getBookingDetailById(id);
 	}
 	
 	
 	// PRIVATE API'S
-	@PostMapping(value="/")
+	@PostMapping(value="/admin")
 	public Taxi createBooking(@RequestBody Taxi taxi) {
 		return taxiBookingService.createBooking(taxi);
 	}
 	
 	
-	@DeleteMapping(value="/{id}")
+	@DeleteMapping(value="/admin/{id}")
 	public String deleteBookingById(@PathVariable("id") int id) {
 		Optional<Taxi> booking = taxiBookingService.getBookingDetailById(id);
 		Taxi booking_object = booking.get();
@@ -54,13 +54,13 @@ public class TaxiBookingController {
 		return "The booking from "+name+" has been delete";
 	}
 	
-	@PutMapping(value="/put")
+	@PutMapping(value="/admin/put")
 	public Taxi updateBooking(@RequestBody Taxi taxi) {
 		return taxiBookingService.updateTaxiBooking(taxi);
 		
 	}
 	
-	@PatchMapping(value="/{id}")
+	@PatchMapping(value="/admin/{id}")
 	public Taxi updateBooking(@PathVariable("id") int id, @RequestBody Taxi taxi) {
 		Optional<Taxi> booking = taxiBookingService.getBookingDetailById(id);
 		Taxi booking_object = booking.get();
