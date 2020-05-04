@@ -2,10 +2,19 @@ package com.codeworld.app.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import com.codeworld.app.entity.Customer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 //entity model
@@ -27,6 +36,14 @@ public class Taxi {
 	
 	@Column(name="passenger_email")
 	private String passenger_email;
+	
+	//@Column(name="customer_id")
+	//private Integer customer_id;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="customer_id", nullable=false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+    private Customer customer;
 
 	//getters and setters
 	public Integer getId() {
@@ -57,14 +74,21 @@ public class Taxi {
 		this.passenger_email = passenger_email;
 	}
 
+	@JsonIgnore
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	@JsonIgnore
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
 	@Override
 	public String toString() {
 		return "Taxi [id=" + id + ", passenger_name=" + passenger_name + ", passenger_number=" + passenger_number
-				+ ", passenger_email=" + passenger_email + "]";
-	}
-	
-	
-	
+				+ ", passenger_email=" + passenger_email + ", customer=" + customer + "]";
+	}	
 	
 
 }
