@@ -1,13 +1,18 @@
 package com.codeworld.app.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.codeworld.app.entity.Customer;
+import com.codeworld.app.entity.Taxi;
 import com.codeworld.app.service.CustomerService;
 import com.codeworld.app.service.TaxiBookingService;
 
@@ -21,6 +26,17 @@ public class CustomerController {
 	@GetMapping(value="/customer")
 	public List<Customer> getCustomers() {
 		return customerService.getAllCustomers();
+	}
+	
+	@GetMapping(value="/customer/{id}")
+	public Optional<Customer> getCustomer(@PathVariable("id") int id) {
+		return customerService.getCustomer(id);
+	}
+	
+	@PostMapping(value="/customer/{id}")
+	public Taxi createCustomerTaxiBooking(@PathVariable("id") int id, @RequestBody Taxi taxi) {
+		return customerService.createCustomerTaxiBooking(id, taxi);
+		
 	}
 
 }

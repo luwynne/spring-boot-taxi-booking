@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import com.codeworld.app.entity.Taxi;
 
@@ -23,7 +24,8 @@ public class Customer {
 	@Column(name="social_number")
 	private String social_number;
 	
-	@OneToMany(mappedBy="customer")
+	@OneToMany(mappedBy="customer_id")
+	@PrimaryKeyJoinColumn
     private Set<Taxi> taxi_bookings;
 
 	public int getId() {

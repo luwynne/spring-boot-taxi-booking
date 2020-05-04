@@ -1,5 +1,7 @@
 package com.codeworld.app.entity;
 
+import java.util.Optional;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -37,13 +39,13 @@ public class Taxi {
 	@Column(name="passenger_email")
 	private String passenger_email;
 	
-	//@Column(name="customer_id")
-	//private Integer customer_id;
+	@Column(name="customer_id")
+    private int customer_id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="customer_id", nullable=false)
-	@OnDelete(action = OnDeleteAction.CASCADE)
-    private Customer customer;
+	//@ManyToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name="customer_id", nullable=false)
+	//@OnDelete(action = OnDeleteAction.CASCADE)
+    //private Customer customer;
 
 	//getters and setters
 	public Integer getId() {
@@ -74,20 +76,20 @@ public class Taxi {
 		this.passenger_email = passenger_email;
 	}
 
-	@JsonIgnore
-	public Customer getCustomer() {
-		return customer;
-	}
+	//@JsonIgnore
+	//public Customer getCustomer() {
+	//	return customer;
+	//}
 
-	@JsonIgnore
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
+	//@JsonIgnore
+	public void setCustomerId(int customer_id) {
+		this.customer_id = customer_id;
 	}
 
 	@Override
 	public String toString() {
 		return "Taxi [id=" + id + ", passenger_name=" + passenger_name + ", passenger_number=" + passenger_number
-				+ ", passenger_email=" + passenger_email + ", customer=" + customer + "]";
+				+ ", passenger_email=" + passenger_email + "]";
 	}	
 	
 
