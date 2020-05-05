@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.codeworld.app.DAO.TaxiBookingDAO;
+import com.codeworld.app.entity.Customer;
 import com.codeworld.app.entity.Taxi;
 
 //writing, fetching and other details. Business logic
@@ -39,6 +40,10 @@ public class TaxiBookingService {
 
 	public Taxi updateTaxiBookingById(Taxi booking_object) {
 		return taxiBookingDao.save(booking_object);
+	}
+
+	public List<Taxi> getCustomerNotDepartedBookings(int id) {
+		return taxiBookingDao.getCustomerNotDepartedBookings(id);
 	}
 
 }

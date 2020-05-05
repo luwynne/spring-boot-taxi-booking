@@ -38,13 +38,6 @@ public class TaxiBookingController {
 	}
 	
 	
-	// PRIVATE API'S
-	@PostMapping(value="/admin")
-	public Taxi createBooking(@RequestBody Taxi taxi) {
-		return taxiBookingService.createBooking(taxi);
-	}
-	
-	
 	@DeleteMapping(value="/admin/{id}")
 	public String deleteBookingById(@PathVariable("id") int id) {
 		Optional<Taxi> booking = taxiBookingService.getBookingDetailById(id);

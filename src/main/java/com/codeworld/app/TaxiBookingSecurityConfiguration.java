@@ -44,8 +44,9 @@ public class TaxiBookingSecurityConfiguration extends WebSecurityConfigurerAdapt
 			.antMatchers("/api/user").hasAnyRole("ADMIN", "USER")
 			//.antMatchers("/api/user").permitAll()
 			.antMatchers("/").permitAll()
-			.antMatchers("/customer").permitAll()
-			.antMatchers("/customer/{id}").permitAll()
+			.antMatchers("/customer").hasAnyRole("ADMIN")
+			.antMatchers("/customer/{id}").hasAnyRole("ADMIN")
+			.antMatchers("/customer/register").hasAnyRole("ADMIN")
 			.and().formLogin();
 		
 		http.cors().and().csrf().disable(); // configuring csrf disabled by default

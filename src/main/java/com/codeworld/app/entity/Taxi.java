@@ -42,6 +42,9 @@ public class Taxi {
 	@ManyToOne
     @JoinColumn(name ="CustomerId")
 	private Customer customer;
+	
+	@Column(name="is_departed")
+	private boolean is_departed;
 
 	public Integer getId() {
 		return id;
@@ -84,12 +87,19 @@ public class Taxi {
 		this.customer = customer;
 	}
 
+	public boolean is_departed() {
+		return is_departed;
+	}
+
+	public void setIs_depated(boolean is_departed) {
+		this.is_departed = is_departed;
+	}
+
 	@Override
 	public String toString() {
 		return "Taxi [id=" + id + ", passenger_name=" + passenger_name + ", passenger_number=" + passenger_number
-				+ ", passenger_email=" + passenger_email + ", customer=" + customer + "]";
+				+ ", passenger_email=" + passenger_email + ", customer=" + customer + ", is_departed=" + is_departed
+				+ "]";
 	}
-
-	
 
 }

@@ -2,13 +2,13 @@ package com.codeworld.app.service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+
+import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.codeworld.app.DAO.CustomerDAO;
-import com.codeworld.app.DAO.TaxiBookingDAO;
 import com.codeworld.app.entity.Customer;
 import com.codeworld.app.entity.Taxi;
 
@@ -19,7 +19,7 @@ public class CustomerService {
 	CustomerDAO customerDao;
 	
 	@Autowired
-	TaxiBookingDAO taxiBookingDao;
+	TaxiBookingService taxiBookingService;
 	
 	public List<Customer> getAllCustomers(){
 		return (List<Customer>) customerDao.findAll();
@@ -48,7 +48,8 @@ public class CustomerService {
 			new_taxi.setPassenger_name(taxi.getPassenger_name());
 			new_taxi.setPassenger_number(taxi.getPassenger_number());
 			new_taxi.setCustomer(customer);
-			taxiBookingDao.save(new_taxi);
+			new_taxi.setIs_depated(false);
+			taxiBookingService.createBooking(new_taxi);
 			return customer;
 		}
 		
@@ -58,7 +59,12 @@ public class CustomerService {
 	public Customer registerCustomer(Customer customer) {
 		return customerDao.save(customer);
 	}
+
 	
-	//Todo delete all customers and its bookings
+	public List<Taxi> getCustomerNotDepartedBookings(int id) {
+		return taxiBookingService.getCustomerNotDepartedBookings(id);
+	}
+	
+	
 
 }

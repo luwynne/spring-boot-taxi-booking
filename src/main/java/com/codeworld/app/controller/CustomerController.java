@@ -44,5 +44,11 @@ public class CustomerController {
 		return customerService.createCustomerTaxiBooking(id, taxi);
 		
 	}
+	
+	@GetMapping(value="/customer/{id}/bookings/not_departed")
+	public List<Taxi> getCustomerNotDepartedBookings(@PathVariable("id") int id){
+		return customerService.getCustomerNotDepartedBookings(id);
+		
+	}
 
 }
