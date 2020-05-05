@@ -39,17 +39,16 @@ public class Taxi {
 	@Column(name="passenger_email")
 	private String passenger_email;
 	
-	@Column(name="customer_id")
-    private int customer_id;
-	
-	//@ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name="customer_id", nullable=false)
-	//@OnDelete(action = OnDeleteAction.CASCADE)
-    //private Customer customer;
+	@ManyToOne
+    @JoinColumn(name ="CustomerId")
+	private Customer customer;
 
-	//getters and setters
 	public Integer getId() {
 		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getPassenger_name() {
@@ -76,21 +75,21 @@ public class Taxi {
 		this.passenger_email = passenger_email;
 	}
 
-	//@JsonIgnore
-	//public Customer getCustomer() {
-	//	return customer;
-	//}
+	@JsonIgnore
+	public Customer getCustomer() {
+		return customer;
+	}
 
-	//@JsonIgnore
-	public void setCustomerId(int customer_id) {
-		this.customer_id = customer_id;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 	@Override
 	public String toString() {
 		return "Taxi [id=" + id + ", passenger_name=" + passenger_name + ", passenger_number=" + passenger_number
-				+ ", passenger_email=" + passenger_email + "]";
-	}	
+				+ ", passenger_email=" + passenger_email + ", customer=" + customer + "]";
+	}
+
 	
 
 }

@@ -42,6 +42,7 @@ public class TaxiBookingSecurityConfiguration extends WebSecurityConfigurerAdapt
 			.antMatchers("/api/admin/{id}").hasRole("ADMIN")
 			.antMatchers("/api/admin/put").hasRole("ADMIN")
 			.antMatchers("/api/user").hasAnyRole("ADMIN", "USER")
+			//.antMatchers("/api/user").permitAll()
 			.antMatchers("/").permitAll()
 			.antMatchers("/customer").permitAll()
 			.antMatchers("/customer/{id}").permitAll()

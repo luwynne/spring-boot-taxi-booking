@@ -33,8 +33,14 @@ public class CustomerController {
 		return customerService.getCustomer(id);
 	}
 	
+	@PostMapping(value="/customer/register")
+	public Customer registerCustomer(@RequestBody Customer customer) {
+		return customerService.registerCustomer(customer);
+		
+	}
+	
 	@PostMapping(value="/customer/{id}")
-	public Taxi createCustomerTaxiBooking(@PathVariable("id") int id, @RequestBody Taxi taxi) {
+	public Customer createCustomerTaxiBooking(@PathVariable("id") int id, @RequestBody Taxi taxi) {
 		return customerService.createCustomerTaxiBooking(id, taxi);
 		
 	}
