@@ -65,5 +65,10 @@ public class TaxiBookingController {
 		return taxiBookingService.updateTaxiBookingById(booking_object);
 		
 	}
+	
+	@PostMapping(value="/admin/{id}/provider/add/{provider_id}")
+	public Taxi addProvider(@PathVariable("id") int id, @PathVariable("provider_id") int provider_id) {
+		return taxiBookingService.addProvider(id, provider_id);
+	}
 
 }

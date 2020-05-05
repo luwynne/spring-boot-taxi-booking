@@ -1,7 +1,9 @@
 package com.codeworld.app.entity;
 
 import java.util.Optional;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -45,6 +49,13 @@ public class Taxi {
 	
 	@Column(name="is_departed")
 	private boolean is_departed;
+	
+	@ManyToMany(cascade = { CascadeType.ALL })
+	@JoinTable(
+			  name = "booking_provider", 
+			  joinColumns = @JoinColumn(name = "taxi_booking_id"), 
+			  inverseJoinColumns = @JoinColumn(name = "provider_id"))
+    Set<TaxiProvider> providers;
 
 	public Integer getId() {
 		return id;
@@ -95,11 +106,20 @@ public class Taxi {
 		this.is_departed = is_departed;
 	}
 
+	public Set<TaxiProvider> getProviders() {
+		return providers;
+	}
+
+	public void setProviders(Set<TaxiProvider> providers) {
+		this.providers = providers;
+	}
+
 	@Override
 	public String toString() {
 		return "Taxi [id=" + id + ", passenger_name=" + passenger_name + ", passenger_number=" + passenger_number
 				+ ", passenger_email=" + passenger_email + ", customer=" + customer + ", is_departed=" + is_departed
-				+ "]";
+				+ ", providers=" + providers + "]";
 	}
+
 
 }
