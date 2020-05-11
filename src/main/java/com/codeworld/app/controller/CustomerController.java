@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,30 +26,28 @@ public class CustomerController {
 	CustomerService customerService;
 	
 	@GetMapping(value="/customer")
-	public List<Customer> getCustomers() {
-		return customerService.getAllCustomers();
+	public ResponseEntity getCustomers() {
+		return new ResponseEntity <List>((List) customerService.getAllCustomers(), HttpStatus.OK);
 	}
 	
 	@GetMapping(value="/customer/{id}")
-	public Optional<Customer> getCustomer(@PathVariable("id") int id) {
-		return customerService.getCustomer(id);
+	public ResponseEntity getCustomer(@PathVariable("id") int id) {
+		return new ResponseEntity (customerService.getCustomer(id), HttpStatus.OK);
 	}
 	
 	@PostMapping(value="/customer/register")
-	public Customer registerCustomer(@RequestBody Customer customer) {
-		return customerService.registerCustomer(customer);
-		
+	public ResponseEntity registerCustomer(@RequestBody Customer customer) {
+		return new ResponseEntity <Customer>(customerService.registerCustomer(customer), HttpStatus.OK);
 	}
 	
 	@PostMapping(value="/customer/{id}")
-	public Customer createCustomerTaxiBooking(@PathVariable("id") int id, @RequestBody Taxi taxi) {
-		return customerService.createCustomerTaxiBooking(id, taxi);
-		
+	public ResponseEntity createCustomerTaxiBooking(@PathVariable("id") int id, @RequestBody Taxi taxi) {	
+		return new ResponseEntity <Customer>(customerService.createCustomerTaxiBooking(id, taxi), HttpStatus.OK);
 	}
 	
 	@GetMapping(value="/customer/{id}/bookings/not_departed")
-	public List<Taxi> getCustomerNotDepartedBookings(@PathVariable("id") int id){
-		return customerService.getCustomerNotDepartedBookings(id);
+	public ResponseEntity getCustomerNotDepartedBookings(@PathVariable("id") int id){
+		return new ResponseEntity <List>((List) customerService.getCustomerNotDepartedBookings(id), HttpStatus.OK);
 		
 	}
 
