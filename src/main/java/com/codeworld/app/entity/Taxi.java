@@ -15,6 +15,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -35,12 +37,15 @@ public class Taxi {
 	private Integer id;
 	
 	@Column(name="passenger_name")
+	@NotEmpty(message = "Please provide a passenger name")
 	private String passenger_name;
 	
 	@Column(name="passenger_number")
+	@NotNull
 	private Integer passenger_number;
 	
 	@Column(name="passenger_email")
+	@NotEmpty(message = "Please provide a passenger email")
 	private String passenger_email;
 	
 	@ManyToOne
@@ -48,6 +53,7 @@ public class Taxi {
 	private Customer customer;
 	
 	@Column(name="is_departed")
+	@NotNull
 	private boolean is_departed;
 	
 	@ManyToMany(cascade = { CascadeType.ALL })

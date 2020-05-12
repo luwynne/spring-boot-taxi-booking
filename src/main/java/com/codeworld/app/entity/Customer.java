@@ -13,7 +13,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import com.codeworld.app.entity.Taxi;
+
 
 @Entity
 @Table(name="customers")
@@ -25,6 +29,7 @@ public class Customer {
 	private int id;
 	
 	@Column(name="social_number")
+	@NotEmpty(message = "Please provide a Social Number")
 	private String social_number;
 	
 	@OneToMany(mappedBy="customer", cascade = CascadeType.ALL)
@@ -32,6 +37,7 @@ public class Customer {
 	
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "details_id")
+	@NotNull
 	private CustomerDetail details;
 
 	public int getId() {

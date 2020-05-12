@@ -3,6 +3,8 @@ package com.codeworld.app.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,13 +50,13 @@ public class TaxiBookingController {
 	}
 	
 	@PutMapping(value="/admin/put")
-	public Taxi updateBooking(@RequestBody Taxi taxi) {
+	public Taxi updateBooking(@Valid @RequestBody Taxi taxi) {
 		return taxiBookingService.updateTaxiBooking(taxi);
 		
 	}
 	
 	@PatchMapping(value="/admin/{id}")
-	public Taxi updateBooking(@PathVariable("id") int id, @RequestBody Taxi taxi) {
+	public Taxi updateBooking(@Valid @PathVariable("id") int id, @RequestBody Taxi taxi) {
 		Optional<Taxi> booking = taxiBookingService.getBookingDetailById(id);
 		Taxi booking_object = booking.get();
 		

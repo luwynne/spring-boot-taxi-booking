@@ -3,6 +3,8 @@ package com.codeworld.app.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,12 +38,12 @@ public class CustomerController {
 	}
 	
 	@PostMapping(value="/customer/register")
-	public ResponseEntity registerCustomer(@RequestBody Customer customer) {
+	public ResponseEntity registerCustomer(@Valid @RequestBody Customer customer) {
 		return new ResponseEntity <Customer>(customerService.registerCustomer(customer), HttpStatus.OK);
 	}
 	
 	@PostMapping(value="/customer/{id}")
-	public ResponseEntity createCustomerTaxiBooking(@PathVariable("id") int id, @RequestBody Taxi taxi) {	
+	public ResponseEntity createCustomerTaxiBooking(@PathVariable("id") int id, @Valid @RequestBody Taxi taxi) {	
 		return new ResponseEntity <Customer>(customerService.createCustomerTaxiBooking(id, taxi), HttpStatus.OK);
 	}
 	
