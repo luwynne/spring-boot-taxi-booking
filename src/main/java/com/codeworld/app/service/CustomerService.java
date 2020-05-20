@@ -6,20 +6,33 @@ import java.util.Optional;
 import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import com.codeworld.app.DAO.CustomerDAO;
 import com.codeworld.app.entity.Customer;
 import com.codeworld.app.entity.Taxi;
+import com.codeworld.app.event.TaxiBookingEvent;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class CustomerService {
+	
+	private final ApplicationEventPublisher publisher;
 	
 	@Autowired
 	CustomerDAO customerDao;
 	
 	@Autowired
 	TaxiBookingService taxiBookingService;
+	
+	@Autowired
+	public CustomerService(ApplicationEventPublisher publisher) {
+		this.publisher = publisher;
+	}
 	
 	public List<Customer> getAllCustomers(){
 		return (List<Customer>) customerDao.findAll();
@@ -50,10 +63,23 @@ public class CustomerService {
 			new_taxi.setCustomer(customer);
 			new_taxi.setIs_depated(false);
 			taxiBookingService.createBooking(new_taxi);
+			
+			// creating an event out of the new customerBooking
+			TaxiBookingEvent event  = new TaxiBookingEvent(this, customer);
+			publisher.publishEvent(event);
+			
 			return customer;
 		}
 		
 		return null;
+	}
+	
+	// Firing event when some Booking is created
+	@EventListener
+	public void onCreateCustomerTaxiBooking(TaxiBookingEvent event) {
+		// Sending email function
+		System.out.println("Sending email to customer...");
+		
 	}
 
 	public Customer registerCustomer(Customer customer) {

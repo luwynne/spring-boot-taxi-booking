@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,12 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.codeworld.app.entity.Customer;
 import com.codeworld.app.entity.Taxi;
+import com.codeworld.app.event.TaxiBookingEvent;
 import com.codeworld.app.service.CustomerService;
 import com.codeworld.app.service.TaxiBookingService;
+
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping(value="/")
 public class CustomerController {
+	
 	
 	@Autowired // this creates a dependency bean for the TaxiBookingService class
 	CustomerService customerService;
