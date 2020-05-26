@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<body>
+    <div>
+        <div>
+            <h1>About us</h1>
+            
+             Click on this <strong><a href="/">link</a></strong> to visit previous page.
+ 
+             <h3>Subscribe to newsletter</h3>
+		    <form action="/newsletter" method="post">
+		        <p>Name: <input required type="text" name="name" /></p>
+		        <p>Email: <input required type="text" name="email" /></p>
+		        <input type="submit" value="Submit" />
+		    </form>
+		    
+		    <p th:text="${message}"></p>
+             
+        </div>
+    </div>
+</body>
+</html>
