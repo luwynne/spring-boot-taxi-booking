@@ -65,7 +65,7 @@ public class CustomerService {
 			taxiBookingService.createBooking(new_taxi);
 			
 			// creating an event out of the new customerBooking
-			TaxiBookingEvent event  = new TaxiBookingEvent(this, customer);
+			TaxiBookingEvent event  = new TaxiBookingEvent(this, customer, new_taxi);
 			publisher.publishEvent(event);
 			
 			return customer;
