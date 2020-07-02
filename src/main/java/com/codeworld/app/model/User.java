@@ -1,61 +1,41 @@
-package com.codeworld.app.entity;
+package com.codeworld.app.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import java.time.Instant;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "users")
 public class User {
 	
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-    private String userName;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long userId;
+    
+	@NotBlank(message = "Username is required")
+    private String username;
+    
+	@NotBlank(message = "Password is required")
     private String password;
-    private boolean active;
-    private String roles;
     
-	public int getId() {
-		return id;
-	}
-	
-	public void setId(int id) {
-		this.id = id;
-	}
-	
-	public String getUsername() {
-		return userName;
-	}
-	
-	public void setUser_name(String userName) {
-		this.userName = userName;
-	}
-	
-	public String getPassword() {
-		return password;
-	}
-	
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	public boolean isActive() {
-		return active;
-	}
-	
-	public void setActive(boolean active) {
-		this.active = active;
-	}
-	
-	public String getRoles() {
-		return roles;
-	}
-	
-	public void setRoles(String roles) {
-		this.roles = roles;
-	}
+	@Email
     
+	@NotEmpty(message = "Email is required")
+    private String email;
     
+	private Instant created;
+    
+	private boolean enabled;
 
-    
 }
